@@ -15,7 +15,7 @@ monitor_brightness() {
                 echo 1 | sudo tee "$brightness_file" > /dev/null
             fi
         done
-        sleep 2  #adjust sleep time for cpu usage
+        sleep 30  #adjust sleep time for cpu usage
     done
 }
 
@@ -30,7 +30,7 @@ echo "Creating systemd service file at $SERVICE_PATH..."
 cat << EOF > $SERVICE_PATH
 [Unit]
 Description=Scroll Lock Monitor Service
-After=multi-user.target
+After=graphical.target
 
 [Service]
 ExecStart=$SCRIPT_PATH
@@ -38,7 +38,7 @@ Restart=always
 User=root
 
 [Install]
-WantedBy=multi-user.target
+WantedBy=graphical.target
 EOF
 
 systemctl daemon-reload
